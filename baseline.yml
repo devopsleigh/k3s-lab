@@ -25,7 +25,7 @@
     - name: Update distro and reboot
       apt: upgrade=dist update_cache=yes
       notify:
-        - Reboot
+        - Reboot node
   handlers:
-    - name: Reboot
+    - name: Reboot node
       reboot:
