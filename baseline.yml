@@ -16,12 +16,10 @@
         - lsof
         - python3
         - stress
+        - rpi-eeprom
 
     - name: Set MOTD
       copy: src=motd.sh dest=/etc/profile.d/motd.sh
-
-    - name: Update firmware
-      apt: name=rpi-eeprom state=latest
 
     - name: Update distro and reboot
       apt: upgrade=dist update_cache=yes
