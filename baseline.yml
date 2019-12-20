@@ -2,8 +2,8 @@
 - hosts: k3s-cluster
   become: yes
   handlers:
-    - name: reboot node
-      reboot:
+  - name: reboot node
+    reboot:
 
   tasks:
 
