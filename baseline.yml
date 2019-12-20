@@ -21,13 +21,13 @@
     - name: Set MOTD
       copy: src=motd.sh dest=/etc/profile.d/motd.sh
 
-    - name: Update firmware and reboot
+    - name: Update firmware
       apt: name=rpi-eeprom state=latest update_cache=yes
 
-    - name: Update distro and reboot
+    - name: Update distro
       apt: upgrade=dist update_cache=yes
-  #     notify:
-  #       - reboot node
-  # handlers:
-  #   - name: reboot node
-  #     reboot:
+      notify:
+        - reboot node
+  handlers:
+    - name: reboot node
+      reboot:
