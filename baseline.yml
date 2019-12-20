@@ -1,10 +1,7 @@
 ---
+# TODO: Handler for rebooting on dist upgrade
 - hosts: k3s-cluster
   become: yes
-  handlers:
-  - name: reboot node
-    reboot:
-
   tasks:
 
     - name: Set timezone to Australia/Sydney
@@ -20,12 +17,15 @@
         - lsof
         - python3
         - stress
-        - rpi-eeprom
 
     - name: Set MOTD
       copy: src=motd.sh dest=/etc/profile.d/motd.sh
 
     - name: Update distro and reboot
       apt: upgrade=dist update_cache=yes
-      notify:
-        - reboot node
+      apt: name=rpi-eeprom state=latest update_cache=yes
+  #     notify:
+  #       - reboot node
+  # handlers:
+  #   - name: reboot node
+  #     reboot:
