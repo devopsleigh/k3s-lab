@@ -2,9 +2,11 @@
 - hosts: k3s-cluster
   become: yes
   tasks:
+
     - name: Set timezone to Australia/Sydney
       timezone:
         name: Australia/Sydney
+
     - name: Update and upgrade existing apt packages
       action: >
         {{ ansible_pkg_mgr }} name={{ item }} state=latest update_cache=yes
@@ -15,11 +17,20 @@
         - lsof
         - python3
         - stress
+
     - name: Set MOTD
       copy: src=motd.sh dest=/etc/profile.d/motd.sh
+
     - name: Update firmware
       apt:
+        state: latest
         name:
           - rpi-eeprom
+
     - name: Update distro and reboot
       apt: upgrade=dist update_cache=yes
+      notify: Reboot
+
+      handlers:
+    - name: Reboot
+      reboot:
