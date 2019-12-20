@@ -1,6 +1,10 @@
 ---
 - hosts: k3s-cluster
   become: yes
+  handlers:
+    - name: reboot node
+      reboot:
+
   tasks:
 
     - name: Set timezone to Australia/Sydney
@@ -25,7 +29,3 @@
       apt: upgrade=dist update_cache=yes
       notify:
         - reboot node
-
-  handlers:
-    - name: reboot node
-      reboot:
