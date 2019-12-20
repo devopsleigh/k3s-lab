@@ -32,5 +32,5 @@
       notify: Reboot
 
   handlers:
-  - name: Reboot
-    reboot:
+    - name: Reboot
+      reboot:
