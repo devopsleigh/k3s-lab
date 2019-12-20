@@ -31,6 +31,6 @@
       apt: upgrade=dist update_cache=yes
       notify: Reboot
 
-      handlers:
+    handlers:
     - name: Reboot
       reboot:
