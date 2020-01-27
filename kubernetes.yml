@@ -10,11 +10,6 @@
       shell: kubeadm token list | cut -d ' ' -f1 | sed -n '2p'
       register: K3S_TOKEN
 
-    - name: "Add K3S_TOKEN to dummy host"
-      add_host:
-      name: "K3S_TOKEN_HOLDER"
-      token: "{{ K3S_TOKEN.stdout }}"
-
 - hosts: k3s-node
   become: yes
   tasks:
