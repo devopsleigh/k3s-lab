@@ -13,4 +13,4 @@ sudo cp hosts.ini /etc/ansible/hosts
 bash copy-ssh-keys.sh
 
 # Configure with Ansible
-ansible-playbook baseline.yml
+ansible-playbook baseline.yml --extra-vars @secrets.yml

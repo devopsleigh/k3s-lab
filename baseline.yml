@@ -4,8 +4,8 @@
   become: yes
   tasks:
 
-    - name: Set timezone to Australia/Sydney
-      timezone: name=Australia/Sydney
+    - name: Set timezone
+      timezone: name={{TZ}}
 
     - name: Update and upgrade existing apt packages
       action: >
