@@ -1,15 +1,12 @@
 ---
-
 - hosts: k3s-master
   become: yes
   tasks:
-
     - name: Configure K3S master
       shell: 'curl -sfL https://get.k3s.io | sh -'
     - name: Return Kubernetes cluster token
       shell: kubeadm token list | cut -d ' ' -f1 | sed -n '2p'
       register: K3S_TOKEN
-
 - hosts: k3s-node
   become: yes
   tasks:
