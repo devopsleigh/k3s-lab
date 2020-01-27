@@ -4,17 +4,22 @@
   become: yes
   tasks:
 
-    - name: Configure master
+    - name: Configure K3S master
       shell: 'curl -sfL https://get.k3s.io | sh -'
     - name: Return Kubernetes cluster token
-      shell: 'echo "export node_token=$(sudo cat /var/lib/rancher/k3s/server/node-token)"'
-    - set_fact: 'k3s_token="{{ node_token }}"'
+      shell: kubeadm token list | cut -d ' ' -f1 | sed -n '2p'
+      register: K3S_TOKEN
+
+    - name: "Add K3S_TOKEN to dummy host"
+      add_host:
+      name: "K3S_TOKEN_HOLDER"
+      token: "{{ K3S_TOKEN.stdout }}"
 
 - hosts: k3s-node
   become: yes
   tasks:
-    - name: Stuff
-      shell: 'curl -sfL https://get.k3s.io | \
-              K3S_URL=https://{{ ansible_host }}:6443 \
-              K3S_TOKEN={{ k3s_token }} \
-              sh -'
+    - name: Join nodes to the K3S cluster
+      shell: "curl -sfL https://get.k3s.io |
+              K3S_URL=https://{{ ansible_host }}:6443
+              K3S_TOKEN={{ hostvars['k3s-master']['K3S_TOKEN'] }}
+              sh -"
