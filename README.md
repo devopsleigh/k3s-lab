@@ -1,6 +1,6 @@
-# Raspberry Pi K3S Cluster
+# Raspberry Pi Kubernetes Cluster
 
-Configures a Raspberry Pi cluster using Ansible.
+Configures a Raspberry Pi Kubernetes (K3S) cluster using Ansible.
 
 ## Prerequisites
 
