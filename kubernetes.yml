@@ -15,3 +15,8 @@
     #     msg: curl -sfL https://get.k3s.io | K3S_URL=https://k3s-master:6443 K3S_TOKEN={{hostvars['k3s-master']['K3S_TOKEN']['stdout']}} sh -
     - name: Configure and K3S nodes and join to the cluster
       shell: curl -sfL https://get.k3s.io | K3S_URL=https://k3s-master:6443 K3S_TOKEN={{hostvars['k3s-master']['K3S_TOKEN']['stdout']}} sh -
+      register: output
+
+    - debug: msg="{{ output.stdout }}"
+
+    - debug: msg="{{ output.stderr }}"
