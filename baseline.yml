@@ -3,35 +3,28 @@
 - hosts: k3s-cluster
   become: yes
   tasks:
-
     - name: Set timezone
       timezone: name={{ TZ }}
-
     - name: Set hostname
       hostname:
         name: "{{ inventory_hostname }}"
-
     - name: Add hostname to /etc/hosts
       lineinfile:
         dest: /etc/hosts
         regexp: '^127\.0\.0\.1[ \t]+localhost'
         line: '127.0.0.1 localhost {{ inventory_hostname }}'
         state: present
-
     - name: create the 'ansible' user
       user: name=ansible append=yes state=present createhome=yes shell=/bin/bash
-
     - name: allow 'ansible' to have passwordless sudo
       lineinfile:
         dest: /etc/sudoers
         line: 'ansible ALL=(ALL) NOPASSWD: ALL'
         validate: 'visudo -cf %s'
-
     - name: set up authorized keys for the ansible user
       authorized_key: user=ansible key="{{ item }}"
       with_file:
         - ~/.ssh/id_rsa.pub
-
     - name: Update and upgrade existing apt packages
       action: >
         {{ ansible_pkg_mgr }} name={{ item }} state=latest update_cache=yes
@@ -42,15 +35,12 @@
         - lsof
         - python3
         - stress
-
     - name: Set MOTD
       copy: src=motd.sh dest=/etc/profile.d/motd.sh
-
     - name: Update firmware
       apt: name=rpi-eeprom state=latest update_cache=yes
       # notify:
       #   - reboot node
-
     - name: Update distro
       apt: upgrade=dist update_cache=yes
   #     notify:
