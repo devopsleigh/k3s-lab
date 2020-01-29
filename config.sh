@@ -3,8 +3,6 @@
 # 3. Get IP addresses of all nodes from router and set static IP
 # 4. Configure hosts.ini
 
-# USING WSL
-
 # Install ansible and set inventory
 sudo apt install ansible -y
 sudo cp hosts.ini /etc/ansible/hosts
