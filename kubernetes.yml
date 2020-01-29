@@ -10,7 +10,5 @@
 - hosts: node
   become: yes
   tasks:
-    - name: Join nodes to the K3S cluster
-      shell: 'curl -sfL https://get.k3s.io | sh -'
-    - name: Join
-      shell: kubeadm join --token={{ hostvars.master.K3S_TOKEN }}
+    - name: Configure and join K3S nodes
+      shell: 'curl -sfL https://get.k3s.io | K3S_URL=https://k3s-master:6443 K3S_TOKEN={{ hostvars.master.K3S_TOKEN }} sh -'
