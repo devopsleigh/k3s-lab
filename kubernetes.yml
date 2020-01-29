@@ -5,16 +5,16 @@
     - name: Configure K3S master
       shell: 'curl -sfL https://get.k3s.io | sh -'
     - name: Return Kubernetes cluster token
-      shell: kubeadm token list | cut -d ' ' -f1 | sed -n '2p'
+      shell: cat /var/lib/rancher/k3s/server/node-token
       register: K3S_TOKEN
-    - name: Display all variables/facts known for a host
-      debug:
-        var: hostvars[inventory_hostname]
+    # - name: Display all variables/facts known for a host
+    #   debug:
+    #     var: hostvars[inventory_hostname]
 - hosts: node
   become: yes
   tasks:
-    - name: Display all variables/facts known for a host
-      debug:
-        var: hostvars[inventory_hostname]
+    # - name: Display all variables/facts known for a host
+    #   debug:
+    #     var: hostvars[master]
     - name: Configure and K3S nodes and join to the cluster
       shell: 'curl -sfL https://get.k3s.io | K3S_URL=https://k3s-master:6443 K3S_TOKEN={{ hostvars[master][K3S_TOKEN] }} sh -'
