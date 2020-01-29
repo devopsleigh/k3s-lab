@@ -7,8 +7,19 @@
     - name: Return Kubernetes cluster token
       shell: kubeadm token list | cut -d ' ' -f1 | sed -n '2p'
       register: K3S_TOKEN
+    - debug:
+      var: K3S_TOKEN
+      verbosity: 2
+    - name: Display all variables/facts known for a host
+      debug:
+      var: hostvars[inventory_hostname]
+      verbosity: 4
 - hosts: node
   become: yes
   tasks:
-    - name: Configure and join K3S nodes
-      shell: 'curl -sfL https://get.k3s.io | K3S_URL=https://k3s-master:6443 K3S_TOKEN={{ hostvars.master.K3S_TOKEN }} sh -'
+    - name: Display all variables/facts known for a host
+      debug:
+      var: hostvars[inventory_hostname]
+      verbosity: 4
+    - name: Configure and K3S nodes and join to the cluster
+      shell: 'curl -sfL https://get.k3s.io | K3S_URL=https://k3s-master:6443 K3S_TOKEN={{ hostvars[master][K3S_TOKEN] }} sh -'
