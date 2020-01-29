@@ -3,8 +3,6 @@
 # 3. Get IP addresses of all nodes from router and set static IP
 # 4. Configure hosts.ini
 
-# USING WSL
-
 # Install ansible and set inventory
 sudo apt install ansible -y
 sudo cp hosts.ini /etc/ansible/hosts
@@ -13,4 +11,7 @@ sudo cp hosts.ini /etc/ansible/hosts
 bash copy-ssh-keys.sh
 
 # Configure with Ansible
-ansible-playbook baseline.yml
+ansible-playbook baseline.yml -e 'ansible_ssh_user=pi' --extra-vars @secrets.yml
+
+# Install K3S
+ansible-playbook kubernetes.yml
