@@ -7,9 +7,6 @@
     - name: Return Kubernetes cluster token
       shell: kubeadm token list | cut -d ' ' -f1 | sed -n '2p'
       register: K3S_TOKEN
-    - debug:
-      var: K3S_TOKEN
-      verbosity: 2
     - name: Display all variables/facts known for a host
       debug:
       var: hostvars[inventory_hostname]
