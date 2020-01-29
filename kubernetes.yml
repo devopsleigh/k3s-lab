@@ -13,5 +13,4 @@
     - name: Join nodes to the K3S cluster
       shell: 'curl -sfL https://get.k3s.io | sh -'
     - name: Join
-      shell: >
-        kubeadm join --token={{ hostvars['master']['K3S_TOKEN'] }}
+      shell: kubeadm join --token={{ hostvars['master']['K3S_TOKEN'] }}
