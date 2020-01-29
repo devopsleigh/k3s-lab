@@ -10,7 +10,7 @@ sudo apt install ansible -y
 sudo cp hosts.ini /etc/ansible/hosts
 
 # Copy SSH keys to another machine for password-less login
-bash copy-ssh-keys.sh
+# bash copy-ssh-keys.sh
 
 # Configure with Ansible
 ansible-playbook baseline.yml --extra-vars @secrets.yml
