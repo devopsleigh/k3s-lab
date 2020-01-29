@@ -15,6 +15,6 @@
   tasks:
     - name: Display all variables/facts known for a host
       debug:
-        var: hostvars[master]
+        var: hostvars[k3s-master]
     # - name: Configure and K3S nodes and join to the cluster
     #   shell: 'curl -sfL https://get.k3s.io | K3S_URL=https://k3s-master:6443 K3S_TOKEN={{ hostvars[master].K3S_TOKEN.stdout }} sh -'
