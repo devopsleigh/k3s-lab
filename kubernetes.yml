@@ -9,7 +9,7 @@
       register: K3S_TOKEN
     - name: Display all variables/facts known for a host
       debug:
-        var: hostvars.inventory_hostname.K3S_TOKEN.stdout_lines
+        var: hostvars[inventory_hostname]['K3S_TOKEN']['stdout_lines']
 - hosts: node
   become: yes
   tasks:
@@ -17,4 +17,4 @@
       debug:
         var: hostvars['k3s-master']['K3S_TOKEN']['stdout_lines']
     # - name: Configure and K3S nodes and join to the cluster
-    #   shell: 'curl -sfL https://get.k3s.io | K3S_URL=https://k3s-master:6443 K3S_TOKEN={{ hostvars[master].K3S_TOKEN.stdout }} sh -'
+    #   shell: 'curl -sfL https://get.k3s.io | K3S_URL=https://k3s-master:6443 K3S_TOKEN={{ hostvars['k3s-master']['K3S_TOKEN']['stdout_lines'] }} sh -'
