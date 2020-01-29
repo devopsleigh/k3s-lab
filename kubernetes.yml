@@ -14,4 +14,4 @@
       shell: 'curl -sfL https://get.k3s.io | sh -'
     - name: Join
       shell: >
-        kubeadm join --token={{ hostvars['k3s-master']['K3S_TOKEN'] }}
+        kubeadm join --token={{ hostvars['master']['K3S_TOKEN'] }}
