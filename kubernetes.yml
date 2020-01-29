@@ -9,7 +9,7 @@
       register: K3S_TOKEN
     - name: Display all variables/facts known for a host
       debug:
-        var: hostvars[inventory_hostname] #[K3S_TOKEN]
+        var: hostvars[inventory_hostname].K3S_TOKEN.stdout
 # - hosts: node
 #   become: yes
 #   tasks:
