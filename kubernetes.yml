@@ -1,5 +1,5 @@
 ---
-- hosts: k3s-master
+- hosts: master
   become: yes
   tasks:
     - name: Configure K3S master
@@ -7,11 +7,11 @@
     - name: Return Kubernetes cluster token
       shell: kubeadm token list | cut -d ' ' -f1 | sed -n '2p'
       register: K3S_TOKEN
-- hosts: k3s-node
+- hosts: node
   become: yes
   tasks:
     - name: Join nodes to the K3S cluster
-      shell: "curl -sfL https://get.k3s.io |
-              K3S_URL=https://{{ ansible_host }}:6443
-              K3S_TOKEN={{ hostvars['k3s-master']['K3S_TOKEN'] }}
-              sh -"
+      shell: 'curl -sfL https://get.k3s.io | sh -'
+    - name: Join
+      shell: >
+        kubeadm join --token={{ hostvars['k3s-master']['K3S_TOKEN'] }}
