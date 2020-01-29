@@ -7,14 +7,14 @@
     - name: Return Kubernetes cluster token
       shell: cat /var/lib/rancher/k3s/server/node-token
       register: K3S_TOKEN
-    # - name: Display all variables/facts known for a host
-    #   debug:
-    #     var: hostvars[inventory_hostname]K3S_TOKEN.stdout_lines
 - hosts: node
   become: yes
   tasks:
-    - name: Display all variables/facts known for a host
-      debug:
-        var: hostvars['k3s-master']['K3S_TOKEN']['stdout_lines']
+    # - name: Verify the token var is populated correctly
+    #   debug:
+    #     var: hostvars['k3s-master']['K3S_TOKEN']['stdout_lines']
     - name: Configure and K3S nodes and join to the cluster
       shell: curl -sfL https://get.k3s.io | K3S_URL=https://k3s-master:6443 K3S_TOKEN="{{ hostvars['k3s-master']['K3S_TOKEN']['stdout_lines'] }}" sh -
+    - name: debug
+      debug:
+        msg: 'curl -sfL https://get.k3s.io | K3S_URL=https://k3s-master:6443 K3S_TOKEN="{{ hostvars['k3s-master']['K3S_TOKEN']['stdout_lines'] }}" sh -'
