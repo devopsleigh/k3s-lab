@@ -17,4 +17,4 @@
       shell: curl -sfL https://get.k3s.io | K3S_URL=https://k3s-master:6443 K3S_TOKEN="{{ hostvars['k3s-master']['K3S_TOKEN']['stdout_lines'] }}" sh -
     - name: debug
       debug:
-        msg: 'curl -sfL https://get.k3s.io | K3S_URL=https://k3s-master:6443 K3S_TOKEN="{{ hostvars['k3s-master']['K3S_TOKEN']['stdout_lines'] }}" sh -'
+        msg: curl -sfL https://get.k3s.io | K3S_URL=https://k3s-master:6443 K3S_TOKEN="{{ hostvars['k3s-master']['K3S_TOKEN']['stdout_lines'] }}" sh -
