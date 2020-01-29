@@ -7,9 +7,9 @@
     - name: Return Kubernetes cluster token
       shell: cat /var/lib/rancher/k3s/server/node-token
       register: K3S_TOKEN
-    # - name: Display all variables/facts known for a host
-    #   debug:
-    #     var: hostvars[inventory_hostname]
+    - name: Display all variables/facts known for a host
+      debug:
+        var: hostvars[inventory_hostname][K3S_TOKEN]
 - hosts: node
   become: yes
   tasks:
