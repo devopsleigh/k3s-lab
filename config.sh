@@ -4,6 +4,8 @@
 # 4. Configure hosts.ini
 
 # Install ansible and set inventory
+sudo apt install software-properties-common -y
+sudo apt-add-repository --yes --update ppa:ansible/ansible
 sudo apt install ansible -y
 sudo cp hosts.ini /etc/ansible/hosts
 
