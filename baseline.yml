@@ -1,6 +1,6 @@
 ---
 # TODO: Handler for rebooting on dist upgrade
-- hosts: k3s-cluster
+- hosts: cluster
   become: yes
   tasks:
     - name: Set timezone
