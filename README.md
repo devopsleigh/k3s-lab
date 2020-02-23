@@ -47,16 +47,22 @@ All tasks are to be performed on the Ansible server host.
     ansible_user=ansible
    ```
 
-3. Set up TZ:
-
-   ```bash
-   sudo bash config.sh
-   ```
-
-4. Run the configuration script:
+3. Set up SSH keys and get the TZ:
 
    ```sh
    sudo bash config.sh
+   ```
+
+4. Create the 'ansible' user and set some basic config:
+
+   ```sh
+   ansible-playbook baseline.yml -e 'ansible_user=pi' --extra-vars "TZ=$timezone"
+   ```
+
+5. Configure K3S
+
+   ```sh
+   ansible-playbook kubernetes.yml
    ```
 
 ## Uninstall K3S

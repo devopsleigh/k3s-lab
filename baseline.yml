@@ -1,0 +1,51 @@
+---
+# TODO: Handler for rebooting on dist upgrade
+- hosts: cluster
+  become: yes
+  tasks:
+    - name: Set timezone
+      timezone: name={{ TZ }}
+    - name: Set hostname
+      hostname:
+        name: "{{ inventory_hostname }}"
+    - name: Add hostname to /etc/hosts
+      lineinfile:
+        dest: /etc/hosts
+        regexp: '^127\.0\.0\.1[ \t]+localhost'
+        line: '127.0.0.1 localhost {{ inventory_hostname }}'
+        state: present
+    - name: Create 'ansible' user
+      user:
+        name: ansible
+        append: yes
+        state: present
+        createhome: yes
+        shell: /bin/bash
+    - name: Allow 'ansible' to have password-less sudo
+      lineinfile:
+        dest: /etc/sudoers
+        line: 'ansible ALL=(ALL) NOPASSWD: ALL'
+        validate: 'visudo -cf %s'
+    - name: Set authorized key for 'ansible', copying it from current user
+      authorized_key:
+        user: ansible
+        key: "{{ item }}"
+        state: present
+      with_file:
+        - ~/.ssh/id_rsa.pub
+    - name: Update and upgrade existing apt packages
+      apt:
+        name: ['figlet', 'toilet', 'nano', 'lsof', 'python3', 'stress']
+    - name: Set MOTD
+      copy: src=motd.sh dest=/etc/profile.d/motd.sh
+    - name: Update firmware
+      apt: name=rpi-eeprom state=latest update_cache=yes
+      # notify:
+      #   - reboot node
+    - name: Update distro
+      apt: upgrade=dist update_cache=yes
+  #     notify:
+  #       - reboot node
+  # handlers:
+  #   - name: reboot node
+  #     reboot:

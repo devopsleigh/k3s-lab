@@ -125,4 +125,4 @@ label5="$borderBar  $(color $statsLabelColor "Temperature...:") $label5$borderBa
 stats="$label1\n$label2\n$label3\n$label4\n$label5"
 
 # Print motd
-echo -e "$header\n$borderEmptyLine\n$greetings\n$borderEmptyLine\n$stats\n$borderEmptyLine\n$borderBottomLine"       
+echo -e "$header\n$borderEmptyLine\n$greetings\n$borderEmptyLine\n$stats\n$borderEmptyLine\n$borderBottomLine"
