@@ -47,7 +47,13 @@ All tasks are to be performed on the Ansible server host.
     ansible_user=ansible
    ```
 
-3. Run the configuration script:
+3. Set up TZ:
+
+   ```bash
+   sudo bash config.sh
+   ```
+
+4. Run the configuration script:
 
    ```sh
    sudo bash config.sh
