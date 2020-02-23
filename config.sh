@@ -29,3 +29,4 @@ else  # compare files by contents
     timezone=find /usr/share/zoneinfo -type f ! -regex ".*/Etc/.*" -exec \
         cmp -s {} /etc/localtime \; -print | sed -e 's@.*/zoneinfo/@@' | head -n1
 fi
+echo $timezone > tz
