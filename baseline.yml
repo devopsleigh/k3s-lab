@@ -26,15 +26,8 @@
       with_file:
         - ~/.ssh/id_rsa.pub
     - name: Update and upgrade existing apt packages
-      action: >
-        {{ ansible_pkg_mgr }} name={{ item }} state=latest update_cache=yes
-      with_items:
-        - figlet
-        - toilet
-        - nano
-        - lsof
-        - python3
-        - stress
+      apt:
+        name: ['figlet', 'toilet', 'nano', 'lsof', 'python3', 'stress']
     - name: Set MOTD
       copy: src=motd.sh dest=/etc/profile.d/motd.sh
     - name: Update firmware

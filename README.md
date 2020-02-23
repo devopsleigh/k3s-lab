@@ -5,7 +5,7 @@ Configures a Raspberry Pi Kubernetes (K3S) cluster using Ansible.
 ## Prerequisites
 
 - A Linux host to use as an Ansible server, separate to the cluster
-  - This example uses Ubuntu - this is important because installing Ansible is different on different distros
+  - This example uses Ubuntu - this is important because installing Ansible differs by distro
   - Tested using Ubuntu 18.04 on WSL
 - Basic configuration of the RPi boards
   - Flash Raspbian Lite

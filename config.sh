@@ -12,8 +12,11 @@ sudo cp hosts.ini /etc/ansible/hosts
 # Copy SSH keys to another machine for password-less login
 bash copy-ssh-keys.sh
 
+# Get host machine's TZ
+bash get-tz.sh
+
 # Configure with Ansible
-ansible-playbook baseline.yml -e 'ansible_ssh_user=pi' --extra-vars @secrets.yml
+ansible-playbook baseline.yml -e 'ansible_ssh_user=pi' --extra-vars $timezone
 
 # Install K3S
 ansible-playbook kubernetes.yml
