@@ -47,18 +47,7 @@ All tasks are to be performed on the Ansible server host.
     ansible_user=ansible
    ```
 
-3. Edit the secrets file:
-
-   ```sh
-   nano secrets.yml
-   ```
-
-   ```yml
-   ---
-   TZ=Country/City
-   ```
-
-4. Run the configuration script:
+3. Run the configuration script:
 
    ```sh
    sudo bash config.sh

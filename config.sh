@@ -16,7 +16,7 @@ bash copy-ssh-keys.sh
 bash get-tz.sh
 
 # Configure with Ansible
-ansible-playbook baseline.yml -e 'ansible_ssh_user=pi' --extra-vars $timezone
+ansible-playbook baseline.yml -e 'ansible_ssh_user=pi' --extra-vars "TZ=$timezone"
 
 # Install K3S
 ansible-playbook kubernetes.yml
