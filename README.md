@@ -32,12 +32,12 @@ All tasks are to be performed on the Ansible server host.
 
    ```ini
     [master]
-    k3s-master ansible_host=10.0.0.10
+    k3s-master ansible_host=10.0.0.110
 
     [node]
-    k3s-node1 ansible_host=10.0.0.11
-    k3s-node2 ansible_host=10.0.0.12
-    k3s-node3 ansible_host=10.0.0.13
+    k3s-node1 ansible_host=10.0.0.111
+    k3s-node2 ansible_host=10.0.0.112
+    k3s-node3 ansible_host=10.0.0.113
 
     [cluster:children]
     master
