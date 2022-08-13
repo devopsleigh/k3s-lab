@@ -47,7 +47,7 @@ All tasks are to be performed on the Ansible server host.
     ansible_user=ansible
    ```
 
-3. Set up SSH keys and get the TZ:
+3. Set up SSH keys and get the timezone:
 
    ```sh
    sudo bash config.sh
