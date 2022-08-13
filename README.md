@@ -5,7 +5,7 @@ Configures a Raspberry Pi Kubernetes (K3S) cluster using Ansible.
 ## Prerequisites
 
 - A Linux host to use as an Ansible server, separate to the cluster
-  - This example uses Ubuntu - this is important because installing Ansible is different on different distros
+  - This example uses Ubuntu - this is important because installing Ansible differs by distro
   - Tested using Ubuntu 18.04 on WSL
 - Basic configuration of the RPi boards
   - Flash Raspbian Lite
@@ -32,12 +32,12 @@ All tasks are to be performed on the Ansible server host.
 
    ```ini
     [master]
-    k3s-master ansible_ssh_host=10.0.0.10
+    k3s-master ansible_host=10.0.0.10
 
     [node]
-    k3s-node1 ansible_ssh_host=10.0.0.11
-    k3s-node2 ansible_ssh_host=10.0.0.12
-    k3s-node3 ansible_ssh_host=10.0.0.13
+    k3s-node1 ansible_host=10.0.0.11
+    k3s-node2 ansible_host=10.0.0.12
+    k3s-node3 ansible_host=10.0.0.13
 
     [cluster:children]
     master
@@ -47,21 +47,22 @@ All tasks are to be performed on the Ansible server host.
     ansible_user=ansible
    ```
 
-3. Edit the secrets file:
-
-   ```sh
-   nano secrets.yml
-   ```
-
-   ```yml
-   ---
-   TZ=Country/City
-   ```
-
-4. Run the configuration script:
+3. Set up SSH keys and get the TZ:
 
    ```sh
    sudo bash config.sh
+   ```
+
+4. Create the 'ansible' user and set some basic config:
+
+   ```sh
+   ansible-playbook baseline.yml -e 'ansible_user=pi' --extra-vars "TZ=$timezone"
+   ```
+
+5. Configure K3S
+
+   ```sh
+   ansible-playbook kubernetes.yml
    ```
 
 ## Uninstall K3S
